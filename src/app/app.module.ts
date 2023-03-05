@@ -7,6 +7,7 @@ import { MainLayoutComponent } from './shared/main-layout/main-layout.component'
 import { HomePageComponent } from './home-page/home-page.component';
 import { PostPageComponent } from './post-page/post-page.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { PostComponent } from './shared/components/post/post.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     MainLayoutComponent,
     HomePageComponent,
     PostPageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
