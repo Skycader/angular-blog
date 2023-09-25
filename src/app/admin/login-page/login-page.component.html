@@ -1,22 +1,39 @@
 <form class="card" [formGroup]="form" (ngSubmit)="submit()">
   <h2>Войти в панель администратора</h2>
 
-  <div class="form-control">
+  <div class="form-control" [class.invalid]="form.touched && form.invalid">
     <label for="email">Email: </label>
-    <input id="email" type="email" />
-    <div class="validation">
-      <small>valid</small>
+    <input id="email" type="email" formControlName="email" />
+    <div class="validation" *ngIf="form.get('email')?.touched && form.invalid">
+      <small *ngIf="form.get('email')?.errors?.required"
+        >Нужно ввести почту</small
+      >
+      <small *ngIf="form.get('email')?.errors?.email"
+        >Нужно ввести корректную почту</small
+      >
     </div>
   </div>
 
-  <div class="form-control">
+  <div class="form-control" [class.invalid]="form.touched && form.invalid">
     <label for="email">Пароль: </label>
-    <input id="password" type="password" />
-    <div class="validation">
-      <small>valid</small>
+    <input id="password" type="password" formControlName="password" />
+    <div
+      class="validation"
+      *ngIf="form.invalid && form.get('password')?.touched"
+    >
+      <small *ngIf="form.get('password')?.errors?.required"
+        >Нужно ввести пароль</small
+      >
+      <small *ngIf="form.get('password')?.errors?.minLength"
+        >Пароль должен быть
+        {{ form.get("password")?.errors?.minLength.requiredLength }} символов в
+        длину, а сейчас он только
+        {{ form.get("password")?.errors?.minLength.actualLength }}</small
+      >
     </div>
   </div>
 
+  <button (click)="check()">Check</button>
   <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
     Войти
   </button>
