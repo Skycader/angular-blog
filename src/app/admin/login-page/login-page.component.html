@@ -1,7 +1,7 @@
 <form class="card" [formGroup]="form" (ngSubmit)="submit()">
   <h2>Войти в панель администратора</h2>
 
-  <div class="form-control" [class.invalid]="form.touched && form.invalid">
+  <div class="form-control" [class.invalid]="form.touched && form.get('email')?.errors">
     <label for="email">Email: </label>
     <input id="email" type="email" formControlName="email" />
     <div class="validation" *ngIf="form.get('email')?.touched && form.invalid">
@@ -24,17 +24,19 @@
       <small *ngIf="form.get('password')?.errors?.required"
         >Нужно ввести пароль</small
       >
-      <small *ngIf="form.get('password')?.errors?.minLength"
+      <small *ngIf="form.get('password')?.errors?.minlength"
         >Пароль должен быть
-        {{ form.get("password")?.errors?.minLength.requiredLength }} символов в
+        {{ form.get("password")?.errors?.minlength.requiredLength }} символов в
         длину, а сейчас он только
-        {{ form.get("password")?.errors?.minLength.actualLength }}</small
+        {{ form.get("password")?.errors?.minlength.actualLength }}</small
       >
     </div>
   </div>
 
-  <button (click)="check()">Check</button>
   <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
     Войти
   </button>
 </form>
+
+  <button (click)="check()">Check</button>
+
