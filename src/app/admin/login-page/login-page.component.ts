@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IUser } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-login-page',
@@ -19,11 +20,9 @@ export class LoginPageComponent {
 
   ngOnInit() { }
   submit() {
-    console.log('submit');
-    console.log(this.form);
-  }
-
-  check() {
-    console.log(this.form.get('password'));
+    const user: IUser = {
+      email: this.form.value.email,
+      password: this.form.value.password,
+    };
   }
 }

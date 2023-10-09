@@ -1,7 +1,10 @@
 <form class="card" [formGroup]="form" (ngSubmit)="submit()">
   <h2>Войти в панель администратора</h2>
 
-  <div class="form-control" [class.invalid]="form.touched && form.get('email')?.errors">
+  <div
+    class="form-control"
+    [class.invalid]="form.touched && form.get('email')?.errors"
+  >
     <label for="email">Email: </label>
     <input id="email" type="email" formControlName="email" />
     <div class="validation" *ngIf="form.get('email')?.touched && form.invalid">
@@ -37,6 +40,3 @@
     Войти
   </button>
 </form>
-
-  <button (click)="check()">Check</button>
-
