@@ -18,6 +18,8 @@ export class LoginPageComponent {
     ]),
   });
 
+  public loading: boolean = false;
+
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -25,12 +27,21 @@ export class LoginPageComponent {
 
   ngOnInit() { }
   submit() {
+    this.loading = true;
     const user: IUser = {
       email: this.form.value.email,
       password: this.form.value.password,
+      returnSecureToken: true,
     };
 
-    this.auth.login(user).subscribe(() => {
+    this.auth.login(user).subscribe((status: any) => {
+      this.loading = false;
+      if (status === false) {
+        this.loading = false;
+        alert('USER NOT FOUND');
+        this.form.reset();
+        return;
+      }
       this.form.reset();
       this.router.navigate(['/admin', 'dashboard']);
     });
