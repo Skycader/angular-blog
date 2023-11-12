@@ -1,12 +1,13 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, Observable, of, Subject, tap, throwError } from 'rxjs';
 import { IUser } from 'src/app/shared/models/user.model';
 import { environment } from 'src/environments/environment';
 import { FbAuthResponse } from 'src/environments/interface';
 
 @Injectable()
 export class AuthService {
+  public error$: Subject<string> = new Subject<string>();
   public get token(): string | null {
     const expDate = new Date(localStorage.getItem('fb-token-exp') || '');
     if (new Date() > expDate) {
@@ -16,8 +17,9 @@ export class AuthService {
       return localStorage.getItem('fb-token') || null;
     }
   }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   public handleError(error: HttpErrorResponse) {
+    this.error$.next(error.error.error);
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
