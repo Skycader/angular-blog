@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, Subject, tap, throwError } from 'rxjs';
+import { Observable, Subject, catchError, of, tap, throwError } from 'rxjs';
 import { IUser } from 'src/app/shared/models/user.model';
 import { environment } from 'src/environments/environment';
 import { FbAuthResponse } from 'src/environments/interface';
@@ -19,7 +19,7 @@ export class AuthService {
   }
   constructor(private http: HttpClient) {}
   public handleError(error: HttpErrorResponse) {
-    this.error$.next(error.error.error);
+    this.error$.next("Введены неверные данные пользователя");
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
@@ -46,7 +46,7 @@ export class AuthService {
         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`,
         user,
       )
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(this.handleError.bind(this)))
       .pipe(tap((x: any) => this.setToken(x)));
   }
 

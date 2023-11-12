@@ -21,7 +21,7 @@ export class LoginPageComponent {
   public loading: boolean = false;
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router,
   ) { }
 
@@ -38,7 +38,7 @@ export class LoginPageComponent {
       this.loading = false;
       if (status === false) {
         this.loading = false;
-        alert('USER NOT FOUND');
+        // alert('USER NOT FOUND');
         this.form.reset();
         return;
       }
