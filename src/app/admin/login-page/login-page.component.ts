@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IUser } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -19,13 +19,21 @@ export class LoginPageComponent {
   });
 
   public loading: boolean = false;
+  public message: string = '';
 
   constructor(
     public auth: AuthService,
     private router: Router,
-  ) { }
+    private route: ActivatedRoute,
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.route.queryParams.subscribe((params: Params) => {
+      if (params['loginAgain']) {
+        this.message = 'Пожалуйста, войдите заново';
+      }
+    });
+  }
   submit() {
     this.loading = true;
     const user: IUser = {
