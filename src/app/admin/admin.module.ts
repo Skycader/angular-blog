@@ -49,6 +49,6 @@ import { AuthGuard } from '../shared/services/auth.guard';
       },
     ]),
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
 })
 export class AdminModule { }
