@@ -5,7 +5,9 @@ import { IUser } from 'src/app/shared/models/user.model';
 import { environment } from 'src/environments/environment';
 import { FbAuthResponse } from 'src/environments/interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   public error$: Subject<string> = new Subject<string>();
   public get token(): string | null {
@@ -17,9 +19,9 @@ export class AuthService {
       return localStorage.getItem('fb-token') || null;
     }
   }
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   public handleError(error: HttpErrorResponse) {
-    this.error$.next("Введены неверные данные пользователя");
+    this.error$.next('Введены неверные данные пользователя');
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
