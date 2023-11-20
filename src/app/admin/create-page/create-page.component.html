@@ -1,1 +1,39 @@
-<p>create-page works!</p>
+<form class="card" [formGroup]="form" (ngSubmit)="submit()">
+  <h2>Создание нового поста</h2>
+
+  <div
+    class="form-control"
+    [class.invalid]="form.touched && form.get('title')?.errors"
+  >
+    <label for="title">Заголовок: </label>
+    <input id="title" type="text" formControlName="title" />
+    <div class="validation" *ngIf="form.get('title')?.touched && form.invalid">
+      <small *ngIf="form.get('title')?.errors?.required"
+        >Нужно ввести заголовок</small
+      >
+      <small *ngIf="form.get('title')?.errors?.title"
+        >Нужно ввести корректный заголовок</small
+      >
+    </div>
+  </div>
+
+  <div class="form-control" [class.invalid]="form.touched && form.invalid">
+    <label for="text">Текст: </label>
+    <input id="text" type="text" formControlName="text" />
+    <div class="validation" *ngIf="form.invalid && form.get('text')?.touched">
+      <small *ngIf="form.get('text')?.errors?.required"
+        >Нужно ввести содержание</small
+      >
+      <small *ngIf="form.get('text')?.errors?.minlength"
+        >Содеражание поста должено быть
+        {{ form.get("password")?.errors?.minlength.requiredLength }} символов в
+        длину, а сейчас оно только
+        {{ form.get("password")?.errors?.minlength.actualLength }}</small
+      >
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    Войти
+  </button>
+</form>
