@@ -19,7 +19,7 @@
 
   <div class="form-control" [class.invalid]="form.touched && form.invalid">
     <label for="text">Текст: </label>
-    <input id="text" type="text" formControlName="text" />
+    <quill-editor formControlName="text"></quill-editor>
     <div class="validation" *ngIf="form.invalid && form.get('text')?.touched">
       <small *ngIf="form.get('text')?.errors?.required"
         >Нужно ввести содержание</small
@@ -34,6 +34,6 @@
   </div>
 
   <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-    Войти
+    Добавить пост
   </button>
 </form>

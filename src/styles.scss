@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.snow.css";
 :root {
   --primary-color: #dc3545;
   --dark-color: #333333;
@@ -18,7 +19,6 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #444;
   color: #fff;
 }
 

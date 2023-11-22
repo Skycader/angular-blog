@@ -22,5 +22,7 @@ export class CreatePageComponent {
       author: 'Axl',
       date: new Date(),
     };
+
+    console.log('POST: ', post);
   }
 }
