@@ -8,6 +8,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { PostPageComponent } from './post-page/post-page.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { PostComponent } from './shared/components/post/post.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,10 @@ import { PostComponent } from './shared/components/post/post.component';
     HomePageComponent,
     PostPageComponent,
     NotFoundComponent,
-    PostComponent
+    PostComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../shared/services/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AuthGuard } from '../shared/services/auth.guard';
   imports: [
     CommonModule,
     SharedModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([
@@ -51,4 +53,4 @@ import { AuthGuard } from '../shared/services/auth.guard';
   ],
   providers: [AuthService, AuthGuard],
 })
-export class AdminModule { }
+export class AdminModule {}
