@@ -8,7 +8,14 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { PostPageComponent } from './post-page/post-page.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { PostComponent } from './shared/components/post/post.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/auth.interceptor';
+
+const INTERCEPTOR_PROVIDER = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: AuthInterceptor,
+};
 
 @NgModule({
   declarations: [
@@ -20,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     PostComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [],
+  providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
