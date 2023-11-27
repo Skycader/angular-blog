@@ -20,11 +20,17 @@ export class PostService {
         const keys = Object.keys(response);
         const posts: IPost[] = [];
         for (let key of keys) {
-          posts.push(response[key]);
+          let obj = response[key];
+          obj.id = key;
+          posts.push(obj);
         }
 
         return posts;
       }),
     );
+  }
+
+  public removePost(id: string) {
+    return this.http.delete(`${environment.fbDbUrl}/post/${id}.json`);
   }
 }
