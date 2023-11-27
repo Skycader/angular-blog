@@ -19,7 +19,6 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  color: #fff;
 }
 
 a {
@@ -254,7 +253,7 @@ table td {
   text-align: left;
 }
 
-table th {
+table thead {
   background: var(--light-color);
 }
 

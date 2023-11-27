@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IPost } from 'src/environments/interface';
 
@@ -7,9 +8,23 @@ import { IPost } from 'src/environments/interface';
   providedIn: 'root',
 })
 export class PostService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public create(post: IPost) {
     return this.http.post(`${environment.fbDbUrl}/post.json`, post);
+  }
+
+  public getAllPosts(): Observable<IPost[]> {
+    return this.http.get(`${environment.fbDbUrl}/post.json`).pipe(
+      map((response: { [key: string]: any }) => {
+        const keys = Object.keys(response);
+        const posts: IPost[] = [];
+        for (let key of keys) {
+          posts.push(response[key]);
+        }
+
+        return posts;
+      }),
+    );
   }
 }
