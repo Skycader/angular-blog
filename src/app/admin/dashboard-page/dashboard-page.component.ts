@@ -10,6 +10,7 @@ import { IPost } from 'src/environments/interface';
 })
 export class DashboardPageComponent {
   public posts: IPost[] = [];
+  public searchStr: string = '';
   constructor(private postService: PostService) { }
 
   ngOnInit() {
