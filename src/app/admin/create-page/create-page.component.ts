@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IPost } from 'src/environments/interface';
+import { PostService } from 'src/app/shared/post.service';
+import { FbAuthResponse, IPost } from 'src/environments/interface';
 
 @Component({
   selector: 'app-create-page',
@@ -8,7 +9,7 @@ import { IPost } from 'src/environments/interface';
   styleUrls: ['./create-page.component.scss'],
 })
 export class CreatePageComponent {
-  constructor() { }
+  constructor(private postService: PostService) {}
 
   public form = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -22,5 +23,12 @@ export class CreatePageComponent {
       author: 'Axl',
       date: new Date(),
     };
+
+    console.log('POST: ', post);
+
+    this.postService.create(post).subscribe((res: any) => {
+      console.log(res);
+      this.form.reset();
+    });
   }
 }

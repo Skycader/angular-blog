@@ -1,2 +1,36 @@
-<p>dashboard-page works!</p>
-<button (click)="checkToken()">check token</button>
+<div *ngIf="posts.length; else loading">
+  <div class="form-control">
+    <input type="text" placeholder="Найти пост..." [(ngModel)]="searchStr" />
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <td>#</td>
+        <td>Автор</td>
+        <td>Название</td>
+        <td>Дата</td>
+        <td>Действие</td>
+      </tr>
+
+      <tr></tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let post of posts | search: searchStr; let idx = index">
+        <td>{{ idx + 1 }}</td>
+        <td>{{ post.author }}</td>
+        <td>{{ post.title }}</td>
+        <td>{{ post.date | date: "medium" }}</td>
+        <td>
+          <button class="btn btn-link">Редактировать</button>
+          <br />
+          <a (click)="removePost(post.id || '')">Удалить пост</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loading>
+  <p class="text-container">Идёт загрузка...</p></ng-template
+>

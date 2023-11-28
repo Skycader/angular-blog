@@ -12,6 +12,12 @@ export class AdminLayoutComponent {
     private router: Router,
     public auth: AuthService,
   ) { }
+
+  ngOnInit() {
+    if (this.auth.token === null) {
+      this.router.navigate(['/admin', 'login']);
+    }
+  }
   logout(event: Event) {
     event.preventDefault();
     this.auth.logout();
