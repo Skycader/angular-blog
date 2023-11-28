@@ -11,6 +11,8 @@ import { IPost } from 'src/environments/interface';
   styleUrls: ['./edit-page.component.scss'],
 })
 export class EditPageComponent {
+  public isUpdating: boolean = false;
+  public postId: string = '';
   public form: FormGroup = new FormGroup({
     title: new FormControl('', Validators.required),
     text: new FormControl('', Validators.required),
@@ -24,6 +26,7 @@ export class EditPageComponent {
     this.route.params
       .pipe(
         switchMap((params: Params) => {
+          this.postId = params['id'];
           return this.postService.getById(params['id']);
         })
       )
@@ -38,13 +41,18 @@ export class EditPageComponent {
   }
 
   public submit() {
+    this.isUpdating = true;
     const post: IPost = {
-      title: this.form.value.title || '',
-      text: this.form.value.text || '',
+      title: this.form.value.title,
+      text: this.form.value.text,
       author: 'Axl',
       date: new Date(),
     };
 
     console.log('POST: ', post);
+
+    this.postService.updatePost(this.postId, post).subscribe(() => {
+      this.isUpdating = false;
+    });
   }
 }

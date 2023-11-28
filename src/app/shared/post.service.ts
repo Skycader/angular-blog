@@ -34,6 +34,10 @@ export class PostService {
     return this.http.get(`${environment.fbDbUrl}/post/${id}.json`);
   }
 
+  public updatePost(id: string, post: IPost) {
+    return this.http.patch(`${environment.fbDbUrl}/post/${id}.json`, post);
+  }
+
   public removePost(id: string) {
     return this.http.delete(`${environment.fbDbUrl}/post/${id}.json`);
   }
