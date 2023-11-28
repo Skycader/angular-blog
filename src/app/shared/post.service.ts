@@ -8,7 +8,7 @@ import { IPost } from 'src/environments/interface';
   providedIn: 'root',
 })
 export class PostService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public create(post: IPost) {
     return this.http.post(`${environment.fbDbUrl}/post.json`, post);
@@ -26,8 +26,12 @@ export class PostService {
         }
 
         return posts;
-      }),
+      })
     );
+  }
+
+  public getById(id: string) {
+    return this.http.get(`${environment.fbDbUrl}/post/${id}.json`);
   }
 
   public removePost(id: string) {

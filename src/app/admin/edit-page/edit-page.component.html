@@ -1,1 +1,48 @@
-<p>edit-page works!</p>
+<div *ngIf="!loading; else loadingRef">
+  <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+    <h2>Создание нового поста</h2>
+
+    <div
+      class="form-control"
+      [class.invalid]="form.touched && form.get('title')?.errors"
+    >
+      <label for="title">Заголовок: </label>
+      <input id="title" type="text" formControlName="title" />
+      <div
+        class="validation"
+        *ngIf="form.get('title')?.touched && form.invalid"
+      >
+        <small *ngIf="form.get('title')?.errors?.required"
+          >Нужно ввести заголовок</small
+        >
+        <small *ngIf="form.get('title')?.errors?.title"
+          >Нужно ввести корректный заголовок</small
+        >
+      </div>
+    </div>
+
+    <div class="form-control" [class.invalid]="form.touched && form.invalid">
+      <label for="text">Текст: </label>
+      <quill-editor formControlName="text"></quill-editor>
+      <div class="validation" *ngIf="form.invalid && form.get('text')?.touched">
+        <small *ngIf="form.get('text')?.errors?.required"
+          >Нужно ввести содержание</small
+        >
+        <small *ngIf="form.get('text')?.errors?.minlength"
+          >Содеражание поста должено быть
+          {{ form.get("password")?.errors?.minlength.requiredLength }} символов
+          в длину, а сейчас оно только
+          {{ form.get("password")?.errors?.minlength.actualLength }}</small
+        >
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+      Обновить пост
+    </button>
+  </form>
+</div>
+
+<ng-template #loadingRef>
+  <p class="text-container">Идёт загрузка...</p></ng-template
+>

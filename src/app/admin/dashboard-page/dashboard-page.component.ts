@@ -1,7 +1,5 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { PostService } from 'src/app/shared/post.service';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { IPost } from 'src/environments/interface';
 
 @Component({
@@ -12,13 +10,16 @@ import { IPost } from 'src/environments/interface';
 export class DashboardPageComponent {
   public posts: IPost[] = [];
   public searchStr: string = '';
-  constructor(private postService: PostService) { }
+  public loading: boolean = false;
+  constructor(private postService: PostService) {}
 
   ngOnInit() {
     this.getPosts();
   }
   public getPosts() {
+    this.loading = true;
     this.postService.getAllPosts().subscribe((posts: IPost[]) => {
+      this.loading = false;
       this.posts = posts;
     });
   }
