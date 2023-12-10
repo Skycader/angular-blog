@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { PostService } from 'src/app/shared/post.service';
 import { IPost } from 'src/environments/interface';
+import { AlertService } from '../shared/services/alert.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -20,15 +21,16 @@ export class EditPageComponent {
   public loading: boolean = true;
   constructor(
     private route: ActivatedRoute,
-    private postService: PostService
-  ) {}
+    private postService: PostService,
+    private alertService: AlertService,
+  ) { }
   ngOnInit() {
     this.route.params
       .pipe(
         switchMap((params: Params) => {
           this.postId = params['id'];
           return this.postService.getById(params['id']);
-        })
+        }),
       )
       .subscribe((post: any) => {
         this.form = new FormGroup({
@@ -53,6 +55,7 @@ export class EditPageComponent {
 
     this.postService.updatePost(this.postId, post).subscribe(() => {
       this.isUpdating = false;
+      this.alertService.warning('Пост был обновлен');
     });
   }
 }

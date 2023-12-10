@@ -11,6 +11,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../shared/services/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from './shared/components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardPageComponent,
     CreatePageComponent,
     EditPageComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,
