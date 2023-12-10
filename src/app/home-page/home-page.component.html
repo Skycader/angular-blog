@@ -1,8 +1,8 @@
-<div class="posts">
-  <app-post></app-post>
-  <app-post></app-post>
-  <app-post></app-post>
-  <app-post></app-post>
-  <app-post></app-post>
-  <app-post></app-post>
+<div class="posts" *ngIf="posts$ | async as posts; else loadingRef">
+  <app-post *ngFor="let post of posts" [post]="post"></app-post>
 </div>
+
+<ng-template #loadingRef
+  ><p>Идёт загрузка</p>
+  <p></p
+></ng-template>

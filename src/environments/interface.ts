@@ -16,3 +16,10 @@ export interface IPost {
   author: string;
   date: Date;
 }
+
+export class Post {
+  title = '';
+  text = '';
+  author = '';
+  date = new Date();
+}
