@@ -35,8 +35,8 @@ export class PostService {
     );
   }
 
-  public getById(id: string) {
-    return this.http.get(`${environment.fbDbUrl}/post/${id}.json`);
+  public getById(id: string): Observable<IPost> {
+    return this.http.get<IPost>(`${environment.fbDbUrl}/post/${id}.json`);
   }
 
   public updatePost(id: string, post: IPost) {

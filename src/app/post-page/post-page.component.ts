@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Observable, switchMap } from 'rxjs';
 import { IPost } from 'src/environments/interface';
+import { PostService } from '../shared/post.service';
 
 @Component({
   selector: 'app-post-page',
@@ -8,12 +10,15 @@ import { IPost } from 'src/environments/interface';
   styleUrls: ['./post-page.component.scss'],
 })
 export class PostPageComponent {
-  constructor(private route: ActivatedRoute) { }
+  public post$: Observable<IPost> = new Observable();
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService,
+  ) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      console.log(params);
-    });
-    console.log(this.route);
+    this.post$ = this.route.params.pipe(
+      switchMap((params: Params) => this.postService.getById(params['id'])),
+    );
   }
 }

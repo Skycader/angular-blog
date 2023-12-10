@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import ruLocale from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
+import { QuillModule } from 'ngx-quill';
 
 registerLocaleData(ruLocale, 'ru');
 
@@ -30,7 +31,7 @@ const INTERCEPTOR_PROVIDER = {
     NotFoundComponent,
     PostComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, QuillModule],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent],
 })
