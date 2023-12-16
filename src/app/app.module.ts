@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,7 @@ import { AuthInterceptor } from './shared/auth.interceptor';
 import ruLocale from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(ruLocale, 'ru');
 
@@ -31,7 +32,12 @@ const INTERCEPTOR_PROVIDER = {
     NotFoundComponent,
     PostComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, QuillModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, QuillModule, ServiceWorkerModule.register('ngsw-worker.js', {
+  enabled: !isDevMode(),
+  // Register the ServiceWorker as soon as the application is stable
+  // or after 30 seconds (whichever comes first).
+  registrationStrategy: 'registerWhenStable:30000'
+})],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent],
 })
